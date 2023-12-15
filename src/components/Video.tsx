@@ -1,13 +1,24 @@
 import Player from "react-player/youtube";
+import { useAppSelector } from "../store";
 
 export function Video() {
+  const lesson = useAppSelector((state) => {
+    const { currentLessonIndex, currentModuleIndex } = state.player;
+
+    const currentLesson =
+      state.player.course.modules[currentModuleIndex].lessons[
+        currentLessonIndex
+      ];
+    return currentLesson;
+  });
+
   return (
     <div className="w-full bg-zinc-950 aspect-video">
       <Player
         width="100%"
         height="100%"
         controls
-        url="https://youtu.be/iZ_L2sA2TLk?si=KL_tcfyyTz5iwG9E"
+        url={`https://www.youtube.com/watch?v=${lesson.id}`}
       />
     </div>
   );
